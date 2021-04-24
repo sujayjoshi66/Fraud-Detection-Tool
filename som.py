@@ -2,12 +2,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import minisom    #minisom is a general open source
+import minisom    #minisom is a general open source python file that contains the minimal implementation of a SOM.
 
 # Importing the dataset
 dataset = pd.read_csv('Credit_Card_Applications.csv')  #creating a data frame by reading data from a 'comma separated file'
-X = dataset.iloc[:, :-1].values  #selecting all the dependent variable
-y = dataset.iloc[:, -1].values  #selecting the dependent variable
+X = dataset.iloc[:, :-1].values  #selecting all the dependent variable(everything except last column)
+y = dataset.iloc[:, -1].values  #selecting the dependent variable(only last column)
 
 # Feature Scaling
 from sklearn.preprocessing import MinMaxScaler
@@ -37,5 +37,7 @@ show()
 mappings = som.win_map(X)
 potential_fraudsters = np.concatenate((mappings[(8,1)], mappings[(6,8)]), axis=0)    #(8,1) and (6,8) are the co-ordinates of the blocks denoting the outliers
 #doing an inverse transform to get back the original values as we had used minmax scaler before the training process
+#the list of potential fraudsters can be seen in variable explorer section
 potential_fraudsters = sc.inverse_transform(potential_fraudsters)
+
 
